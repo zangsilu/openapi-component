@@ -78,7 +78,7 @@ class Response extends BaseResponse
             return $content->toJson();
         }
 
-        return json_encode($content, JSON_UNESCAPED_UNICODE);
+        return json_encode($content, JSON_UNESCAPED_UNICODE|JSON_FORCE_OBJECT);
     }
 
     /**
