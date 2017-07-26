@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace App\Providers;
+namespace Bqrd\OpenApi\Providers;
 
 use Event;
 use Illuminate\Database\DatabaseServiceProvider as ServiceProvider;
@@ -25,17 +25,16 @@ class DatabaseServiceProvider extends ServiceProvider
     public function boot()
     {
         parent:: boot();
+
         Event::listen(StatementPrepared::class, function ($event) {
             $event->statement->setFetchMode(\PDO::FETCH_ASSOC);
         });
 
-        //if ($this->app->runningInConsole()) {
         app('db')->listen(function ($query) {
             $prepareSql = str_replace(['?', "\r\n", "\r", "\n"], ["'%s'", '', '', ''], $query->sql);
             $prepareSql = preg_replace('/:[0-9a-z_]+/i', "'%s'", $prepareSql);
             $sql = vsprintf($prepareSql, $query->bindings);
             app('log')->info(sprintf('sql:%s cost:%dms', $sql, $query->time));
         });
-        //}
     }
 }
