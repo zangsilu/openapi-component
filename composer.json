@@ -1,7 +1,7 @@
 {
-    "name": "bqrd/openapi-middleware",
+    "name": "bqrd/openapi-component",
     "description": "Openapi中间件",
-    "keywords": ["middleware"],
+    "keywords": ["middleware", "response", "provider"],
     "license": "MIT",
     "type": "project",
     "authors": [
@@ -13,11 +13,12 @@
      "minimum-stability": "stable",
      "autoload": {
          "psr-4": {
-                     "Bqrd\\OpenApi\\": "src/"
-        }
+             "Bqrd\\OpenApi\\": "src/"
+         }
      },
       "require": {
-          "php": ">=7.0"
+          "php": ">=7.0",
+          "liugj/helpers": "~1"
       },
       "require-dev": {
           "phpunit/phpunit": "~5",

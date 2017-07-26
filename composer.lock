@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9cb6270135b9a7d9e03675c153d15704",
-    "packages": [],
+    "content-hash": "6bd9f43f62565e7795843cc97143143e",
+    "packages": [
+        {
+            "name": "liugj/helpers",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liugj/helpers.git",
+                "reference": "7be7b93452ac28f890854bd1dbf2e8704db141da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liugj/helpers/zipball/7be7b93452ac28f890854bd1dbf2e8704db141da",
+                "reference": "7be7b93452ac28f890854bd1dbf2e8704db141da",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.3",
+                "phpunit/phpunit": "~5",
+                "sllh/php-cs-fixer-styleci-bridge": "dev-master"
+            },
+            "type": "project",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "秦建波",
+                    "email": "qinjb@boqii.com"
+                },
+                {
+                    "name": "刘国靖",
+                    "email": "liugj@boqii.com"
+                },
+                {
+                    "name": "王永涛",
+                    "email": "wangyt@boqii.com"
+                },
+                {
+                    "name": "王爱波",
+                    "email": "wangab@boqii.net"
+                }
+            ],
+            "description": "签名",
+            "keywords": [
+                "signature",
+                "签名"
+            ],
+            "time": "2017-06-11T03:32:30+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "composer/semver",
@@ -1745,7 +1803,7 @@
                 "psr",
                 "symfony"
             ],
-            "time": "2017-01-12T10:06:52+00:00"
+            "time": "2017-01-12 10:06:52"
         },
         {
             "name": "sllh/styleci-fixers",
