@@ -6,7 +6,7 @@ use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
 
 $header = <<<EOF
-This file is part of the bqrd openapi middleware package.
+This file is part of the bqrd openapi component package.
 
 (c) liugj <liugj@boqii.com>
 
