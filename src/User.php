@@ -33,8 +33,8 @@ class User implements AuthenticatableContract, AuthorizableContract
         $appId = $parameters->get('x-api-proxy-app-id', 'default');
         $sign = $parameters->get('Sign', $parameters->get('sign'));
         $secret = config('auth.secret');
-        if (isset($secret[$appId]) && $token = $secret[$appId]) {
-            return Liugj\Helpers\validate($parameters, $sign, $token) ? new self() : null;
+        if ($sign && isset($secret[$appId]) && $token = $secret[$appId]) {
+            return \Liugj\Helpers\validate($parameters->toArray(), $sign, $token) ? new self() : null;
         }
     }
 }
