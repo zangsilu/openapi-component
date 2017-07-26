@@ -1,0 +1,79 @@
+<?php
+
+/*
+ * This file is part of the bqrd openapi middleware package.
+ *
+ * (c) liugj <liugj@boqii.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace Bqrd\OpenApi\Middleware;
+
+use Bqrd\OpenApi\Response\Response;
+use Closure;
+use Log;
+
+class RenderMiddleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
+        $content = $response->getOriginalContent();
+
+        if ($response->status() == 200) {
+            return new Response($content, $response->status());
+        } elseif ($response->exception) {
+            $exception = $response->exception;
+            $code = $exception->getCode() ?: $response->status();
+
+            return new Response('', $response->status(), [], $code, $exception->getMessage());
+        } elseif ($response->status() == 401) {
+            return new Response('', 401, [], $response->status(), $content);
+        } else {
+            $data = $response->getData(true);
+            $statusText = Response :: $statusTexts[$response->status()];
+            if ($response->status() == 422) {
+                $statusText = current(current($data));
+                $data = null;
+            }
+
+            return new Response($data, $response->status(), [], $response->status(), $statusText);
+        }
+    }
+
+    /**
+     * terminate.
+     *
+     * @param mixed $request
+     * @param mixed $response
+     *
+     * @return mixed
+     */
+    public function terminate($request, $response)
+    {
+        if (config('log.default.level') == 'debug') {
+            log :: debug($request . ' '. $response);
+        } else {
+            $message = $response->getContent();
+
+            if ($response->getCode() == 0) {
+                $message = mb_strlen($message, 'utf-8') > 256 ? (mb_substr($message, 0, 240, 'utf-8').'...') : $message;
+                Log :: notice($message);
+            } elseif (in_array($response->getCode(), [422])) {
+                Log :: warning($message);
+            } else {
+                Log :: error($message);
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "bqrd/openapi-middleware",
+    "description": "Openapi中间件",
+    "keywords": ["middleware"],
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "刘国靖",
+            "email": "liugj@boqii.com"
+        }
+      ],
+     "minimum-stability": "stable",
+     "autoload": {
+         "psr-4": {
+                     "Bqrd\\OpenApi\\": "src/"
+        }
+     },
+      "require": {
+          "php": ">=7.0"
+      },
+      "require-dev": {
+          "phpunit/phpunit": "~5",
+          "friendsofphp/php-cs-fixer": "^2.3",
+          "sllh/php-cs-fixer-styleci-bridge": "dev-master"
+      }
+}
