@@ -81,7 +81,6 @@ return [
     ],
     
     'secret' => [
-       'default'                  => 'comboqiiwwwvetapp',
     ]
 
 ];
