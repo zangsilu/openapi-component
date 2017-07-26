@@ -23,12 +23,12 @@ class User implements AuthenticatableContract, AuthorizableContract
     /**
      * validToken.
      *
-     * @param mixed $parameters
+     * @param \Illuminate\Support\Collection $parameters
      * @static
      *
      * @return mixed
      */
-    public static function validToken($parameters)
+    public static function validToken(\Illuminate\Support\Collection $parameters)
     {
         $appId = $parameters->get('x-api-proxy-app-id', 'default');
         $sign = $parameters->get('Sign', $parameters->get('sign'));
