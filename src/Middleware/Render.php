@@ -15,7 +15,7 @@ use Bqrd\OpenApi\Response\Response;
 use Closure;
 use Log;
 
-class RenderMiddleware
+class Render
 {
     /**
      * Handle an incoming request.
