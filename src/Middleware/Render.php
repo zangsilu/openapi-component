@@ -30,7 +30,10 @@ class Render
         $response = $next($request);
         $content = $response->getOriginalContent();
 
-        if ($response->status() == 200) {
+        if($response->headers->get('x-api-proxy') =='wxa');
+        {
+            return $response;
+        }elseif ($response->status() == 200) {
             return new Response($content, $response->status());
         } elseif ($response->exception) {
             $exception = $response->exception;
