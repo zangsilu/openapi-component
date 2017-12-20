@@ -30,10 +30,9 @@ class Render
         $response = $next($request);
         $content = $response->getOriginalContent();
 
-        if($response->headers->get('x-api-proxy') =='wxa');
-        {
+        if ($response->headers->get('x-api-proxy') == 'wxa') {
             return $response;
-        }elseif ($response->status() == 200) {
+        } elseif ($response->status() == 200) {
             return new Response($content, $response->status());
         } elseif ($response->exception) {
             $exception = $response->exception;
@@ -69,7 +68,7 @@ class Render
         } else {
             $message = $response->getContent();
 
-            if ($response->getCode() == 0) {
+            if (!method_exists($response, 'getCode') || $response->getCode() == 0) {
                 $message = mb_strlen($message, 'utf-8') > 256 ? (mb_substr($message, 0, 240, 'utf-8').'...') : $message;
                 Log :: notice($message);
             } elseif (in_array($response->getCode(), [422])) {
