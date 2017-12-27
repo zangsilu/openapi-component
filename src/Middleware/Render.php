@@ -29,19 +29,21 @@ class Render
     {
         $response = $next($request);
         $content = $response->getOriginalContent();
+        $headers = $response->headers->all();
+
         if ($response instanceof \Illuminate\Http\RedirectResponse){
             return $response;
         }elseif ($response->headers->get('x-api-proxy') == 'wxa') {
             return $response;
         } elseif ($response->status() == 200) {
-            return new Response($content, $response->status());
+            return new Response($content, $response->status(), $headers);
         } elseif ($response->exception) {
             $exception = $response->exception;
             $code = $exception->getCode() ?: $response->status();
 
-            return new Response('', $response->status(), [], $code, $exception->getMessage());
+            return new Response('', $response->status(), $headers, $code, $exception->getMessage());
         } elseif ($response->status() == 401) {
-            return new Response('', 401, [], $response->status(), $content);
+            return new Response('', 401, $headers, $response->status(), $content);
         } else {
             $data = $response->getData(true);
             $statusText = Response :: $statusTexts[$response->status()];
@@ -50,7 +52,7 @@ class Render
                 $data = null;
             }
 
-            return new Response($data, $response->status(), [], $response->status(), $statusText);
+            return new Response($data, $response->status(), $headers, $response->status(), $statusText);
         }
     }
 
