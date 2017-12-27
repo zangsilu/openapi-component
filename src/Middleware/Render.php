@@ -31,9 +31,9 @@ class Render
         $content = $response->getOriginalContent();
         $headers = $response->headers->all();
 
-        if ($response instanceof \Illuminate\Http\RedirectResponse){
+        if ($response instanceof \Illuminate\Http\RedirectResponse) {
             return $response;
-        }elseif ($response->headers->get('x-api-proxy') == 'wxa') {
+        } elseif ($response->headers->get('x-api-proxy') == 'wxa') {
             return $response;
         } elseif ($response->status() == 200) {
             return new Response($content, $response->status(), $headers);
