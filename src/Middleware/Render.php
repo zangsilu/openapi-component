@@ -30,7 +30,6 @@ class Render
         $response = $next($request);
         $content = $response->getOriginalContent();
         $headers = $response->headers->all();
-
         if ($response instanceof \Illuminate\Http\RedirectResponse) {
             return $response;
         } elseif ($response->headers->get('x-api-proxy') == 'wxa') {
