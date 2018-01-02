@@ -41,7 +41,7 @@ class Render
             $code = $exception->getCode() ?: $response->status();
 
             return new Response('', $response->status(), $headers, $code, $exception->getMessage());
-        } elseif ($response->status() == 401) {
+        } elseif (in_array($response->status(),[401, 419])) {
             return new Response('', 401, $headers, $response->status(), $content);
         } else {
             $data = $response->getData(true);
