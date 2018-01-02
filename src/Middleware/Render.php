@@ -73,10 +73,10 @@ class Render
             if (!method_exists($response, 'getCode') || $response->getCode() == 0) {
                 $message = mb_strlen($message, 'utf-8') > 256 ? (mb_substr($message, 0, 240, 'utf-8').'...') : $message;
                 Log :: notice($message);
-            } elseif (in_array($response->getCode(), [422])) {
-                Log :: warning($message);
+            } elseif (in_array($response->status(), [422, 423]) || !in_array($response->getCode(), [500])) {
+                Log :: warning($message . ' input '. http_build_query($request->input()));
             } else {
-                Log :: error($message);
+                Log :: error($message . ' input '. http_build_query($request->input()));
             }
         }
     }
