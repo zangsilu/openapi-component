@@ -41,7 +41,7 @@ class Render
             $status = $response->exception  instanceof \Exception ? 200 : $response->status();
             $code = $exception->getCode() ?: $response->status();
 
-            return new $responseClass('', $status, $headers, $code, $exception->getMessage());
+            return new Response('', $status, $headers, $code, $exception->getMessage());
         } elseif (in_array($response->status(), [401, 419])) {
             return new Response('', 401, $headers, $response->status(), $content);
         } else {
