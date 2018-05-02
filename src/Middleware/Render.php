@@ -69,7 +69,11 @@ class Render
         if (config('log.default.level') == 'debug') {
             log :: debug($request . ' '. $response);
         } else {
+            if ($response->headers->get('Content-Type') == 'image/jpeg') {
+                return ;
+            }
             $message = $response->getContent();
+
 
             if (!method_exists($response, 'getCode') || $response->getCode() == 0) {
                 $message = mb_strlen($message, 'utf-8') > 256 ? (mb_substr($message, 0, 240, 'utf-8').'...') : $message;
