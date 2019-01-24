@@ -29,12 +29,5 @@ class DatabaseServiceProvider extends ServiceProvider
         Event::listen(StatementPrepared::class, function ($event) {
             $event->statement->setFetchMode(\PDO::FETCH_ASSOC);
         });
-
-        app('db')->listen(function ($query) {
-            $prepareSql = str_replace(['?', "\r\n", "\r", "\n"], ["'%s'", '', '', ''], $query->sql);
-            $prepareSql = preg_replace('/:[0-9a-z_]+/i', "'%s'", $prepareSql);
-            $sql = vsprintf($prepareSql, $query->bindings);
-            app('log')->info(sprintf('sql:%s cost:%dms', $sql, $query->time));
-        });
     }
 }
